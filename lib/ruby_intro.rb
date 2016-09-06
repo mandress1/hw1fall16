@@ -69,5 +69,14 @@ end
 # Part 3
 
 class BookInStock
-# YOUR CODE HERE
+  def initialize(isbn, price)
+    raise ArgumentError, "Error: ISBN is empty" if isbn.empty?
+    raise ArgumentError, "Error: invalid price (must be > $0)" if price <= 0
+    @isbn  = isbn
+    @price = price
+  end
+  
+  def price_as_string
+    "$#{@price.round 2}"
+  end
 end
