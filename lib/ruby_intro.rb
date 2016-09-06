@@ -62,7 +62,7 @@ def starts_with_consonant? s
 end
 
 def binary_multiple_of_4? s
-  return false if s.nil? or s.empty? or /[A-z\W]/.match(s)
+  return false if s.nil? or s.empty? or /[A-z2-9\W]/.match(s)
   return (s.to_i(2) % 4) == 0
 end
 
@@ -76,7 +76,26 @@ class BookInStock
     @price = price
   end
   
+  def isbn
+    @isbn
+  end
+  
+  def price
+    @price
+  end
+  
+  def isbn= new
+    raise ArgumentError, "Error: ISBN is empty" if new.empty?
+    @isbn = new
+  end
+  
+  def price= new
+    raise ArgumentError, "Error: invalid price (must be > $0)" if price <= 0
+    @price = new
+  end
+  
   def price_as_string
-    "$#{@price.round 2}"
+    priceOut = @price.round(2).to_s
+    "$#{priceOut + ((priceOut.split(".")[1].length == 2)?(""):("0"))}"
   end
 end
